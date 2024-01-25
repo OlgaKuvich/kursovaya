@@ -76,6 +76,7 @@
   height: 100%;
   max-width: 500px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .post-likes {
