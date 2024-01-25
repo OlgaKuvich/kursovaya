@@ -1,7 +1,7 @@
 import { renderApp } from "./index.js";
 import { replaceSave } from "./helpers.js";
 
-const personalKey = "prod";
+const personalKey = "olga-kuvichinskaya"; //"prod";
 const baseHost = "https://wedev-api.sky.pro";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
