@@ -131,7 +131,8 @@ const renderApp = () => {
           description,
           imageUrl,
           token: getToken(),
-        }).then((data) => {
+        })
+        .then((data) => {
           if (data) {
             goToPage(POSTS_PAGE);
           }
