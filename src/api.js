@@ -1,5 +1,5 @@
-import { renderApp, setPosts } from "./index.js";
-import { replaceSave } from "./helpers.js";
+import { setPosts } from "./index.js";
+// import { replaceSave } from "./helpers.js";
 
 const personalKey = "olga-kuvichinskaya"; //"prod";
 const baseHost = "https://wedev-api.sky.pro";
@@ -111,13 +111,15 @@ export function getPostsOfUser({ token, userId }) {
           console.warn(error)
       })
 }
+
 export function addLikePost({ token, postId }) {
   return fetch(`${postsHost}/${postId}/like`, {
       method: 'POST',
       headers: {
           Authorization: token,
       },
-    }).then((response) => {
+    })
+    .then((response) => {
       if (response.status === 401) {
           alert('Лайкать посты могут только авторизованные пользователи')
           throw new Error('Нет авторизации')
@@ -125,13 +127,15 @@ export function addLikePost({ token, postId }) {
       return response.json()
   })
 }
+
 export function removeLikePost({ token, postId }) {
   return fetch(`${postsHost}/${postId}/dislike`, {
       method: 'POST',
       headers: {
           Authorization: token,
       },
-  }).then((response) => {
+  })
+  .then((response) => {
       if (response.status === 401) {
           alert('Войдите, чтобы убрать лайк')
           throw new Error('Нет авторизации')
