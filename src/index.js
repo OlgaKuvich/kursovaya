@@ -98,7 +98,7 @@ export const goToPage = (newPage, data) => {
   throw new Error("страницы не существует");
 };
 
-const renderApp = () => {
+export const renderApp = () => {
   const appEl = document.getElementById("app");
   if (page === LOADING_PAGE) {
     return renderLoadingPageComponent({
