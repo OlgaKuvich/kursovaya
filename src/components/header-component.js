@@ -18,7 +18,6 @@ export function renderHeaderComponent({ element }) {
           : ""
       }  
   </div>
-  
 `;
 
   element

@@ -71,75 +71,73 @@ export function uploadImage({ file }) {
 }
 
 export function addPost({ token, imageUrl }) {
-  const commentInputElement = document.getElementById('description')
+  const commentInputElement = document.getElementById("description");
   return fetch(postsHost, {
-      method: 'POST',
-      body: JSON.stringify({
-        description: commentInputElement.value,
-          imageUrl,
-      }),
-      headers: {
-        Authorization: token,
-      },
+    method: "POST",
+    body: JSON.stringify({
+      description: commentInputElement.value,
+      imageUrl,
+    }),
+    headers: {
+      Authorization: token,
+    },
   }).then((response) => {
-      if (response.status === 400) {
-          alert('Нет фото или описания')
-      } else {
-          return response.json()
-      }
-  })
+    if (response.status === 400) {
+      alert("Нет фото или описания");
+    } else {
+      return response.json();
+    }
+  });
 }
 export function getPostsOfUser({ token, userId }) {
   return fetch(`${postsHost}/user-posts/${userId}`, {
-      method: 'GET',
-      headers: {
-          Authorization: token,
-      },
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
   })
-      .then((response) => {
-          if (response.status === 401) {
-            throw new Error('Нет авторизации')
-          }
-          return response.json()
-      })
-      .then((data) => {
-          setPosts(data.posts)
-          return data.posts
-      })
-      .catch((error) => {
-          alert('Кажется, у вас сломался интернет, попробуйте позже')
-          console.warn(error)
-      })
+    .then((response) => {
+      if (response.status === 401) {
+        throw new Error("Нет авторизации");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setPosts(data.posts);
+      return data.posts;
+    })
+    .catch((error) => {
+      alert("Кажется, у вас сломался интернет, попробуйте позже");
+      console.warn(error);
+    });
 }
 
 export function addLikePost({ token, postId }) {
   return fetch(`${postsHost}/${postId}/like`, {
-      method: 'POST',
-      headers: {
-          Authorization: token,
-      },
-    })
-    .then((response) => {
-      if (response.status === 401) {
-          alert('Лайкать посты могут только авторизованные пользователи')
-          throw new Error('Нет авторизации')
-      }
-      return response.json()
-  })
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    if (response.status === 401) {
+      alert("Лайкать посты могут только авторизованные пользователи");
+      throw new Error("Нет авторизации");
+    }
+    return response.json();
+  });
 }
 
 export function removeLikePost({ token, postId }) {
   return fetch(`${postsHost}/${postId}/dislike`, {
-      method: 'POST',
-      headers: {
-          Authorization: token,
-      },
-  })
-  .then((response) => {
-      if (response.status === 401) {
-          alert('Войдите, чтобы убрать лайк')
-          throw new Error('Нет авторизации')
-        }
-        return response.json()
-    })
-  }
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    if (response.status === 401) {
+      alert("Войдите, чтобы убрать лайк");
+      throw new Error("Нет авторизации");
+    }
+    return response.json();
+  });
+}

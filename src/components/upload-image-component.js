@@ -23,7 +23,6 @@ export function renderUploadImageComponent({ element, onImageUrlChange }) {
                 />
                 Выберите фото
             </label>
-          
       `
       }
   </div>

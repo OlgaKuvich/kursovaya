@@ -1,19 +1,13 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import {
-  posts,
-  goToPage,
-  getToken,
-  renderApp,
-} from "../index.js";
+import { posts, goToPage, getToken, renderApp } from "../index.js";
 import { addLikePost, removeLikePost } from "../api.js";
 import { formatDistance } from "date-fns";
 import { ru } from "date-fns/locale";
-// import { replaceSave } from "../helpers.js";
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
-  console.log("Актуальный список постов:", posts);
+  // console.log("Актуальный список постов:", posts);
 
   /** либо postman либо проверка в коде не пустой ли массив
    * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
@@ -128,15 +122,13 @@ export function likeEventListener() {
       const index = likeButton.dataset.index;
 
       if (posts[index].isLiked) {
-        removeLikePost({ token: getToken(), postId })
-        .then((updatedPost) => {
+        removeLikePost({ token: getToken(), postId }).then((updatedPost) => {
           posts[index].isLiked = false;
           posts[index].likes = updatedPost.post.likes;
           renderApp();
         });
       } else {
-        addLikePost({ token: getToken(), postId })
-        .then((updatedPost) => {
+        addLikePost({ token: getToken(), postId }).then((updatedPost) => {
           posts[index].isLiked = true;
           posts[index].likes = updatedPost.post.likes;
           renderApp();
@@ -156,15 +148,13 @@ export function likeEventListenerOnIMG() {
       const index = likeButton.dataset.index;
 
       if (posts[index].isLiked) {
-        removeLikePost({ token: getToken(), postId })
-        .then((updatedPost) => {
+        removeLikePost({ token: getToken(), postId }).then((updatedPost) => {
           posts[index].isLiked = false;
           posts[index].likes = updatedPost.post.likes;
           renderApp();
         });
       } else {
-        addLikePost({ token: getToken(), postId })
-        .then((updatedPost) => {
+        addLikePost({ token: getToken(), postId }).then((updatedPost) => {
           posts[index].isLiked = true;
           posts[index].likes = updatedPost.post.likes;
           renderApp();
