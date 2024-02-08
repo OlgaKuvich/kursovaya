@@ -73,12 +73,12 @@ export function uploadImage({ file }) {
   });
 }
 
-export function addPost({ token, imageUrl }) {
-  const commentInputElement = document.getElementById("description");
+export function addPost({ description, token, imageUrl }) {
+  // const commentInputElement = document.getElementById("description");
   return fetch(postsHost, {
     method: "POST",
     body: JSON.stringify({
-      description: commentInputElement.value,
+      description,
       imageUrl,
     }),
     headers: {
@@ -124,7 +124,7 @@ export function addLikePost({ token, postId }) {
   })
   .then((response) => {
     if (response.status === 401) {
-      // alert("Лайкать посты могут только авторизованные пользователи");
+      alert("Лайкать посты могут только авторизованные пользователи");
       throw new Error("Нет авторизации");
     }
     return response.json();
