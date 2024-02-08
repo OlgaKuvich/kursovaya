@@ -4,6 +4,7 @@ import { posts, goToPage, getToken, renderApp } from "../index.js";
 import { addLikePost, removeLikePost } from "../api.js";
 import { formatDistance } from "date-fns";
 import { ru } from "date-fns/locale";
+import { replaceSave } from "../helpers.js";
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -24,9 +25,9 @@ export function renderPostsPageComponent({ appEl }) {
           new Date(),
           { locale: ru }
         ),
-        description: postItem.description,
+        description: replaceSave(postItem.description),
         userId: postItem.user.id,
-        userName: postItem.user.name,
+        userName: replaceSave(postItem.user.name),
         userLogin: postItem.user.login,
         postImageUserUrl: postItem.user.imageUrl,
         usersLikes: postItem.likes,
@@ -122,13 +123,15 @@ export function likeEventListener() {
       const index = likeButton.dataset.index;
 
       if (posts[index].isLiked) {
-        removeLikePost({ token: getToken(), postId }).then((updatedPost) => {
+        removeLikePost({ token: getToken(), postId })
+        .then((updatedPost) => {
           posts[index].isLiked = false;
           posts[index].likes = updatedPost.post.likes;
           renderApp();
         });
       } else {
-        addLikePost({ token: getToken(), postId }).then((updatedPost) => {
+        addLikePost({ token: getToken(), postId })
+          .then((updatedPost) => {
           posts[index].isLiked = true;
           posts[index].likes = updatedPost.post.likes;
           renderApp();

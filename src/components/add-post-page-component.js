@@ -1,5 +1,6 @@
 import { renderUploadImageComponent } from './upload-image-component.js'
 import { renderHeaderComponent } from './header-component.js'
+import { replaceSave } from '../helpers.js';
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   let imageUrl = ''
