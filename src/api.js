@@ -1,5 +1,5 @@
 import { setPosts } from "./index.js";
-import { replaceSave } from "./helpers.js";
+// import { replaceSave } from "./helpers.js";
 
 const personalKey = "olga-kuvichinskaya"; //"prod";
 const baseHost = "https://wedev-api.sky.pro";
@@ -11,10 +11,7 @@ export function getPosts({ token }) {
     headers: {
       Authorization: token,
     },
-    // body: JSON.stringify({
-    //   replaceSave,
-    // }),
-  })
+    })
     .then((response) => {
       if (response.status === 401) {
         throw new Error("Нет авторизации");
@@ -74,11 +71,11 @@ export function uploadImage({ file }) {
 }
 
 export function addPost({ description, token, imageUrl }) {
-  // const commentInputElement = document.getElementById("description");
+  const commentInputElement = document.getElementById("description");
   return fetch(postsHost, {
     method: "POST",
     body: JSON.stringify({
-      description,
+      description: commentInputElement.value,
       imageUrl,
     }),
     headers: {
