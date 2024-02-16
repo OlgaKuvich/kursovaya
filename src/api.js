@@ -71,11 +71,12 @@ export function uploadImage({ file }) {
 }
 
 export function addPost({ description, token, imageUrl }) {
-  const commentInputElement = document.getElementById("description");
+  // const commentInputElement = document.getElementById("description");
   return fetch(postsHost, {
     method: "POST",
     body: JSON.stringify({
-      description: commentInputElement.value,
+      description,
+      token,
       imageUrl,
     }),
     headers: {
@@ -121,7 +122,6 @@ export function addLikePost({ token, postId }) {
   })
   .then((response) => {
     if (response.status === 401) {
-      alert("Лайкать посты могут только авторизованные пользователи");
       throw new Error("Нет авторизации");
     }
     return response.json();
@@ -137,7 +137,6 @@ export function removeLikePost({ token, postId }) {
   })
   .then((response) => {
     if (response.status === 401) {
-      alert("Войдите, чтобы убрать лайк");
       throw new Error("Нет авторизации");
     }
     return response.json();

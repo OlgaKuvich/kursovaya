@@ -1,6 +1,6 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, getToken, renderApp } from "../index.js";
+import { posts, goToPage, getToken, renderApp, user } from "../index.js";
 import { addLikePost, removeLikePost } from "../api.js";
 import { formatDistance } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -119,23 +119,26 @@ export function likeEventListener() {
   likeButtons.forEach((likeButton) => {
     likeButton.addEventListener("click", (event) => {
       event.stopPropagation();
-      const postId = likeButton.dataset.postId;
-      const index = likeButton.dataset.index;
 
-      if (posts[index].isLiked) {
-        removeLikePost({ token: getToken(), postId })
-        .then((updatedPost) => {
-          posts[index].isLiked = false;
-          posts[index].likes = updatedPost.post.likes;
-          renderApp();
-        });
+      if (user) {
+        const postId = likeButton.dataset.postId;
+        const index = likeButton.dataset.index;
+
+        if (posts[index].isLiked) {
+          removeLikePost({ token: getToken(), postId }).then((updatedPost) => {
+            posts[index].isLiked = false;
+            posts[index].likes = updatedPost.post.likes;
+            renderApp();
+          });
+        } else {
+          addLikePost({ token: getToken(), postId }).then((updatedPost) => {
+            posts[index].isLiked = true;
+            posts[index].likes = updatedPost.post.likes;
+            renderApp();
+          });
+        }
       } else {
-        addLikePost({ token: getToken(), postId })
-          .then((updatedPost) => {
-          posts[index].isLiked = true;
-          posts[index].likes = updatedPost.post.likes;
-          renderApp();
-        });
+        alert("Лайкать посты могут только авторизованные пользователи");
       }
     });
   });
@@ -147,21 +150,26 @@ export function likeEventListenerOnIMG() {
   likeButtons.forEach((likeButton) => {
     likeButton.addEventListener("dblclick", (event) => {
       event.stopPropagation();
+
       const postId = likeButton.dataset.postId;
       const index = likeButton.dataset.index;
 
-      if (posts[index].isLiked) {
-        removeLikePost({ token: getToken(), postId }).then((updatedPost) => {
-          posts[index].isLiked = false;
-          posts[index].likes = updatedPost.post.likes;
-          renderApp();
-        });
+      if (user) {
+        if (posts[index].isLiked) {
+          removeLikePost({ token: getToken(), postId }).then((updatedPost) => {
+            posts[index].isLiked = false;
+            posts[index].likes = updatedPost.post.likes;
+            renderApp();
+          });
+        } else {
+          addLikePost({ token: getToken(), postId }).then((updatedPost) => {
+            posts[index].isLiked = true;
+            posts[index].likes = updatedPost.post.likes;
+            renderApp();
+          });
+        }
       } else {
-        addLikePost({ token: getToken(), postId }).then((updatedPost) => {
-          posts[index].isLiked = true;
-          posts[index].likes = updatedPost.post.likes;
-          renderApp();
-        });
+        alert("Необходимо авторизоваться");
       }
     });
   });
