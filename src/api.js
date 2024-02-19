@@ -1,7 +1,6 @@
 import { setPosts } from "./index.js";
-// import { replaceSave } from "./helpers.js";
 
-const personalKey = "olga-kuvichinskaya"; //"prod";
+const personalKey = "olga-kuvichinskaya";
 const baseHost = "https://wedev-api.sky.pro";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 

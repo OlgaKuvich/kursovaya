@@ -1,6 +1,5 @@
 import { renderUploadImageComponent } from './upload-image-component.js'
 import { renderHeaderComponent } from './header-component.js'
-import { replaceSave } from '../helpers.js';
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   let imageUrl = ''
@@ -43,7 +42,11 @@ document.getElementById('add-button').addEventListener('click', () => {
     const description = document.getElementById('description').value
     
     onAddPostClick({
-      description: description,
+      description: description
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;"),
       imageUrl: imageUrl,
   })
 })
