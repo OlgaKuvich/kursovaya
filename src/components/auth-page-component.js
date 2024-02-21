@@ -1,5 +1,4 @@
 import { loginUser, registerUser } from "../api.js";
-import { replaceSave } from "../helpers.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 
@@ -83,8 +82,8 @@ export function renderAuthPageComponent({ appEl, setUser }) {
           return;
         }
         loginUser({
-          login: replaceSave(login),
-          password: replaceSave(password),
+          login: login,
+          password: password,
           
         })
           .then((user) => {
@@ -115,9 +114,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
           return;
         }
         registerUser({
-          login: replaceSave(login),
-          password: replaceSave(password),
-          name: replaceSave(name),
+          login: login,
+          password: password,
+          name: name,
           imageUrl,
         })
           .then((user) => {

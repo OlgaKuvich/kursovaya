@@ -25,10 +25,10 @@ export function renderPostsPageComponent({ appEl }) {
           new Date(),
           { locale: ru }
         ),
-        description: replaceSave(postItem.description),
+        description: postItem.description,
         userId: postItem.user.id,
         userName: replaceSave(postItem.user.name),
-        userLogin: postItem.user.login,
+        userLogin: replaceSave(postItem.user.login),
         postImageUserUrl: postItem.user.imageUrl,
         usersLikes: postItem.likes,
         isLiked: postItem.isLiked,
